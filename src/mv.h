@@ -14,7 +14,7 @@
 
 #define mv_from_array(array) mv_from_array(array, __BLADES)
 
-using coeff = float;
+using coeff = double;
 
 struct MV {
     coeff coeffs[32] = { 0 };
@@ -22,6 +22,13 @@ struct MV {
     coeff& operator[](size_t);
 };
 
+MV& operator+=(MV&, MV&);
+
+MV& operator-=(MV&, MV&);
+
+MV& operator*=(MV&, MV&);
+
+MV& operator/=(MV&, MV&);
 
 MV operator+(MV&, MV&);
 
@@ -30,5 +37,14 @@ MV operator-(MV&, MV&);
 MV operator*(MV&, MV&);
 
 MV operator/(MV&, MV&);
+
+MV operator*(MV&, coeff);
+MV operator*(coeff, MV&);
+
+MV& operator*=(MV&, coeff);
+
+coeff length(MV& mv);
+
+MV vector(coeff x = 0, coeff y = 0, coeff z = 0);
 
 #endif /* MV_H */
