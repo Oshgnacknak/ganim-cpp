@@ -1,7 +1,7 @@
 #include "mv.h"
 
 #if 1
-MV operator/(MV& a, MV& b) {
+MV operator/(MV a, MV b) {
 #pragma gpc begin
     gaalop_div_a = mv_from_array(a);
     gaalop_div_b = mv_from_array(b);

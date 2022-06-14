@@ -20,30 +20,34 @@ struct MV {
     coeff coeffs[32] = { 0 };
 
     coeff& operator[](size_t);
+
+    coeff s();
+    coeff x();
+    coeff y();
 };
 
-MV& operator+=(MV&, MV&);
+MV& operator+=(MV, MV);
 
-MV& operator-=(MV&, MV&);
+MV& operator-=(MV, MV);
 
-MV& operator*=(MV&, MV&);
+MV& operator*=(MV, MV);
 
-MV& operator/=(MV&, MV&);
+MV& operator/=(MV, MV);
 
-MV operator+(MV&, MV&);
+MV operator+(MV, MV);
 
-MV operator-(MV&, MV&);
+MV operator-(MV, MV);
 
-MV operator*(MV&, MV&);
+MV operator*(MV, MV);
 
-MV operator/(MV&, MV&);
+MV operator/(MV, MV);
 
-MV operator*(MV&, coeff);
-MV operator*(coeff, MV&);
+MV operator*(MV, coeff);
+MV operator*(coeff, MV);
 
-MV& operator*=(MV&, coeff);
+MV& operator*=(MV, coeff);
 
-coeff length(MV& mv);
+coeff length(MV mv);
 
 MV vector(coeff x = 0, coeff y = 0, coeff z = 0);
 
