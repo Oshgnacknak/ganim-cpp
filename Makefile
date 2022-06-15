@@ -1,4 +1,4 @@
-.PRECIOUS: gpc/%.gpc
+.PRECIOUS: gpc/%
 
 CXXFLAGS := -ggdb -std=c++20 -Isrc -O0
 LIBS := $(shell pkg-config --libs sdl2)
