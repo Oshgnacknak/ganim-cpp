@@ -6,7 +6,7 @@ LIBS := $(shell pkg-config --libs sdl2)
 SOURCES = $(wildcard *.cpp)
 OPJECTS = $(patsubst %.cpp, gpc/%.o, $(SOURCES))
 
-ganim: $(OPJECTS)
+ganim: gpc/expensive.o gpc/expensive.o
 	$(CXX) $(LIBS) $(CXXFLAGS) -o $@ $^
 
 gpc/%.o: gpc/%.cpp
@@ -15,5 +15,8 @@ gpc/%.o: gpc/%.cpp
 gpc/%: gpc/%.gpc
 	gpc --double --pragmas -i $< --of $@ > /dev/null
 
-gpc/%.gpc: %
+gpc/expensive.cpp.gpc: expensive.cpp src/sandwich.cpp src/div.cpp
+	cpp $< -o $@
+
+gpc/ganim.cpp.gpc: ganim.cpp src/clock.cpp src/ganim.cpp src/mv.cpp src/render.cpp
 	cpp $< -o $@
