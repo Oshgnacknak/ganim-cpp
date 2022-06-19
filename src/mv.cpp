@@ -132,3 +132,107 @@ MV vector(coeff x, coeff y, coeff z) {
 coeff& MV::operator[](size_t blade) {
     return coeffs[blade];
 }
+
+void print1(osh::Formatter auto& fmt, MV& mv) {
+#pragma gpc begin
+    mv_print1_mv = mv_from_array(mv);
+#pragma clucalc begin
+    ? mv_print1_res = mv_print1_mv;
+#pragma clucalc end
+    printp(fmt, mv_get_bladecoeff(mv_print1_res, 1.0));
+
+    if (mv_get_bladecoeff(mv_print1_res, e1) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1), "e1");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e2) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e2), "e2");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e3) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e3), "e3");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, einf) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, einf), "einf");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e0) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e0), "e0");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e1^e2) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^e2), "e1^e2");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e1^e3) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^e3), "e1^e3");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e1^einf) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^einf), "e1^einf");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e1^e0) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^e0), "e1^e0");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e2^e3) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e2^e3), "e2^e3");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e2^einf) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e2^einf), "e2^einf");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e2^e0) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e2^e0), "e2^e0");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e3^einf) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e3^einf), "e3^einf");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e3^e0) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e3^e0), "e3^e0");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, einf^e0) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, einf^e0), "einf^e0");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e1^e2^e3) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^e2^e3), "e1^e2^e3");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e1^e2^einf) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^e2^einf), "e1^e2^einf");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e1^e2^e0) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^e2^e0), "e1^e2^e0");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e1^e3^einf) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^e3^einf), "e1^e3^einf");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e1^e3^e0) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^e3^e0), "e1^e3^e0");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e1^einf^e0) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^einf^e0), "e1^einf^e0");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e2^e3^einf) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e2^e3^einf), "e2^e3^einf");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e2^e3^e0) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e2^e3^e0), "e2^e3^e0");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e2^einf^e0) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e2^einf^e0), "e2^einf^e0");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e3^einf^e0) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e3^einf^e0), "e3^einf^e0");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e1^e2^e3^einf) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^e2^e3^einf), "e1^e2^e3^einf");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e1^e2^e3^e0) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^e2^e3^e0), "e1^e2^e3^e0");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e1^e2^einf^e0) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^e2^einf^e0), "e1^e2^einf^e0");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e1^e3^einf^e0) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^e3^einf^e0), "e1^e3^einf^e0");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e2^e3^einf^e0) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e2^e3^einf^e0), "e2^e3^einf^e0");
+    }
+    if (mv_get_bladecoeff(mv_print1_res, e1^e2^e3^einf^e0) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^e2^e3^einf^e0), "e1^e2^e3^einf^e0");
+    }
+#pragma gpc end
+}

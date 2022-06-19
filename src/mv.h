@@ -1,6 +1,8 @@
 #ifndef MV_H
 #define MV_H 
 
+#include "osh.h"
+
 #include <cstddef>
 
 #define __BLADES 1, \
@@ -57,5 +59,7 @@ MV& operator*=(MV, coeff);
 coeff length(MV mv);
 
 MV vector(coeff x = 0, coeff y = 0, coeff z = 0);
+
+void print1(osh::Formatter auto& fmt, MV& mv);
 
 #endif /* MV_H */

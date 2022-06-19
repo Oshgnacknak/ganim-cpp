@@ -1,11 +1,10 @@
-#include <iostream>
 #include <cmath>
 
 #include "clock.h"
 #include "mv.h"
 #include "render.h"
 
-using namespace std;
+using namespace osh;
 
 bool running = true;
 
@@ -47,7 +46,11 @@ MV create_rotor(coeff angle, MV axis) {
 }
 
 int main() {
-    open_window();
+    // open_window();
+    // Defer close_the_window([&] {
+    //     close_window();
+    // });
+
     double last = current_time();
 
     MV center = create_point(WIDTH/2, HEIGHT/2);
@@ -66,14 +69,17 @@ int main() {
 
         point <<= trans;
 
-        begin_render();
-        cout << "x: " << point.x() << " y: " << point.y() << endl;
-        draw_point(point.x(), point.y(), RED);
-        end_render();
+        // begin_render();
+        println(point);
+        // end_render();
 
         double last = now;
     }
 
-    close_window();
     return 0; 
 }
+
+#define OSH_H_IMPLEMENTATION
+#include "osh.h"
+
+#include "mv.cpp"
