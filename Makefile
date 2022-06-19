@@ -13,7 +13,7 @@ gpc/%.o: gpc/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $^
 
 gpc/%: gpc/%.gpc
-	gpc --double --pragmas -i $< --of $@
+	gpc --double --pragmas -i $< --of $@ > /dev/null
 
 gpc/%.gpc: %
 	cpp $< -o $@
