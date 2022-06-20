@@ -144,6 +144,21 @@ coeff& MV::operator[](size_t blade) {
     return coeffs[blade];
 }
 
+MV create_rotor(coeff angle, MV axis) {
+    coeff x = cos(angle/2);
+    coeff y = sin(angle/2);
+#pragma gpc begin
+    create_rotor_axis = mv_from_array(axis);
+#pragma clucalc begin
+    ? create_rotor_res = x - create_rotor_axis * y;
+#pragma clucalc end
+    MV mv;
+    mv = mv_to_array(create_rotor_res);
+    mv /= length(mv);
+    return mv;
+#pragma gpc end
+}
+
 void print1(osh::Formatter auto& fmt, MV& mv) {
 #pragma gpc begin
     mv_print1_mv = mv_from_array(mv);

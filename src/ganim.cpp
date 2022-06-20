@@ -44,21 +44,6 @@ MV operator^(MV a, MV b) {
 #pragma gpc end
 }
 
-MV create_rotor(coeff angle, MV axis) {
-    coeff x = cos(angle/2);
-    coeff y = sin(angle/2);
-#pragma gpc begin
-    create_rotor_axis = mv_from_array(axis);
-#pragma clucalc begin
-    ? create_rotor_res = x - create_rotor_axis * y;
-#pragma clucalc end
-    MV mv;
-    mv = mv_to_array(create_rotor_res);
-    mv /= length(mv);
-    return mv;
-#pragma gpc end
-}
-
 int main() {
     MV a = create_point(0, 0, +1);
     MV b = create_point(0, 0, -1);
