@@ -6,11 +6,21 @@
 #include <cstddef>
 
 #define __BLADES 1, \
-                 e1, e2, e3, einf, e0, \
-                 e1^e2, e1^e3, e1^einf, e1^e0, e2^e3, e2^einf, e2^e0, e3^einf, e3^e0, einf^e0, \
-                 e1^e2^e3, e1^e2^einf, e1^e2^e0, e1^e3^einf, e1^e3^e0, e1^einf^e0, e2^e3^einf, e2^e3^e0, e2^einf^e0, e3^einf^e0, \
-                 e1^e2^e3^einf, e1^e2^e3^e0, e1^e2^einf^e0, e1^e3^einf^e0, e2^e3^einf^e0, \
-                 e1^e2^e3^einf^e0
+                 e1, \
+                 e2, \
+                 einf, \
+                 e0, \
+                 e1^e2, \
+                 e1^einf, \
+                 e1^e0, \
+                 e2^einf, \
+                 e2^e0, \
+                 einf^e0, \
+                 e1^e2^einf, \
+                 e1^e2^e0, \
+                 e1^einf^e0, \
+                 e2^einf^e0, \
+                 e1^e2^einf^e0
 
 #define mv_to_array(mv) mv_to_array(mv, __BLADES)
 
@@ -19,7 +29,7 @@
 using coeff = double;
 
 struct MV {
-    coeff coeffs[32] = { 0 };
+    coeff coeffs[16] = { 0 };
 
     coeff& operator[](size_t);
 
@@ -63,9 +73,9 @@ coeff length(MV mv);
 
 MV create_rotor(coeff angle, MV axis);
 
-MV create_point(coeff x=0, coeff y=0, coeff z=0);
+MV create_point(coeff x=0, coeff y=0);
 
-MV create_vector(coeff x = 0, coeff y = 0, coeff z = 0);
+MV create_vector(coeff x = 0, coeff y = 0);
 
 void print1(osh::Formatter auto& fmt, MV& mv);
 

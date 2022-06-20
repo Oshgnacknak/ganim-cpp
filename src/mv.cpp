@@ -129,10 +129,10 @@ coeff length(MV mv) {
 #pragma gpc end
 }
 
-MV create_point(coeff x, coeff y, coeff z) {
+MV create_point(coeff x, coeff y) {
 #pragma gpc begin
 #pragma clucalc begin
-    ? create_point_res = createPoint(x, y, z);
+    ? create_point_res = createPoint(x, y, 0);
 #pragma clucalc end
     MV mv;
     mv = mv_to_array(create_point_res);
@@ -153,10 +153,10 @@ MV operator^(MV a, MV b) {
 #pragma gpc end
 }
 
-MV create_vector(coeff x, coeff y, coeff z) {
+MV create_vector(coeff x, coeff y) {
 #pragma gpc begin
 #pragma clucalc begin
-    ? vector_res = x*e1 + y*e2 + z*e3;
+    ? vector_res = x*e1 + y*e2;
 #pragma clucalc end
     MV mv;
     mv = mv_to_array(vector_res);
