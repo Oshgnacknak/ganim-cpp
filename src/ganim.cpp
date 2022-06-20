@@ -67,7 +67,7 @@ int main2() {
 
     MV center = create_point(WIDTH/2, HEIGHT/2);
 
-    MV point = vector(WIDTH/2 + 20.0, HEIGHT/2 - 50.0);
+    MV point = create_vector(WIDTH/2 + 20.0, HEIGHT/2 - 50.0);
 
     while (running) {
         double now = current_time();
@@ -77,7 +77,7 @@ int main2() {
             running = false;
         }
 
-        MV trans = create_translator(vector(500, 300) * dt);
+        MV trans = create_translator(create_vector(500, 300) * dt);
 
         point <<= trans;
 

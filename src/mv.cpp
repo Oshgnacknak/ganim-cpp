@@ -129,7 +129,7 @@ coeff length(MV mv) {
 #pragma gpc end
 }
 
-MV vector(coeff x, coeff y, coeff z) {
+MV create_vector(coeff x, coeff y, coeff z) {
 #pragma gpc begin
 #pragma clucalc begin
     ? vector_res = x*e1 + y*e2 + z*e3;
