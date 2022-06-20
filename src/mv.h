@@ -61,6 +61,8 @@ coeff length(MV mv);
 
 MV create_rotor(coeff angle, MV axis);
 
+MV create_point(coeff x=0, coeff y=0, coeff z=0);
+
 MV create_vector(coeff x = 0, coeff y = 0, coeff z = 0);
 
 void print1(osh::Formatter auto& fmt, MV& mv);

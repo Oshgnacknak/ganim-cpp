@@ -129,6 +129,17 @@ coeff length(MV mv) {
 #pragma gpc end
 }
 
+MV create_point(coeff x, coeff y, coeff z) {
+#pragma gpc begin
+#pragma clucalc begin
+    ? create_point_res = createPoint(x, y, z);
+#pragma clucalc end
+    MV mv;
+    mv = mv_to_array(create_point_res);
+    return mv;
+#pragma gpc end
+}
+
 MV create_vector(coeff x, coeff y, coeff z) {
 #pragma gpc begin
 #pragma clucalc begin

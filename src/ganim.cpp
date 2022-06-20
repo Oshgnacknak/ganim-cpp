@@ -8,17 +8,6 @@ using namespace osh;
 
 bool running = true;
 
-MV create_point(coeff x=0, coeff y=0, coeff z=0) {
-#pragma gpc begin
-#pragma clucalc begin
-    ? create_point_res = createPoint(x, y, z);
-#pragma clucalc end
-    MV mv;
-    mv = mv_to_array(create_point_res);
-    return mv;
-#pragma gpc end
-}
-
 MV create_translator(MV delta) {
 #pragma gpc begin
     create_translator_delta = mv_from_array(delta);
