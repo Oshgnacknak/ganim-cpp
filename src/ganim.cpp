@@ -20,19 +20,6 @@ MV create_translator(MV delta) {
 #pragma gpc end
 }
 
-MV operator^(MV a, MV b) {
-#pragma gpc begin
-    gaalop_outer_prod_a = mv_from_array(a);
-    gaalop_outer_prod_b = mv_from_array(b);
-#pragma clucalc begin
-    ? gaalop_outer_prod_res = gaalop_outer_prod_a ^ gaalop_outer_prod_b;
-#pragma clucalc end
-    MV mv;
-    mv = mv_to_array(gaalop_outer_prod_res);
-    return mv;
-#pragma gpc end
-}
-
 int main() {
     MV a = create_point(0, 0, +1);
     MV b = create_point(0, 0, -1);

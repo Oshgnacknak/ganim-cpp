@@ -46,6 +46,8 @@ MV operator*(MV, MV);
 
 MV operator/(MV, MV);
 
+MV operator^(MV a, MV b);
+
 MV operator<<(MV a, MV b);
 
 MV operator*(MV, coeff);

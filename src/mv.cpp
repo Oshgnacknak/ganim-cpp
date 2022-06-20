@@ -140,6 +140,19 @@ MV create_point(coeff x, coeff y, coeff z) {
 #pragma gpc end
 }
 
+MV operator^(MV a, MV b) {
+#pragma gpc begin
+    gaalop_outer_prod_a = mv_from_array(a);
+    gaalop_outer_prod_b = mv_from_array(b);
+#pragma clucalc begin
+    ? gaalop_outer_prod_res = gaalop_outer_prod_a ^ gaalop_outer_prod_b;
+#pragma clucalc end
+    MV mv;
+    mv = mv_to_array(gaalop_outer_prod_res);
+    return mv;
+#pragma gpc end
+}
+
 MV create_vector(coeff x, coeff y, coeff z) {
 #pragma gpc begin
 #pragma clucalc begin
