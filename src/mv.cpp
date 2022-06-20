@@ -106,6 +106,17 @@ MV operator/(MV a, coeff b) {
 #pragma gpc end
 }
 
+MV& operator/=(MV& a, coeff b) {
+#pragma gpc begin
+    gaalop_div_scalar_eq_a = mv_from_array(a);
+#pragma clucalc begin
+    ? gaalop_div_scalar_eq_res = gaalop_div_scalar_eq_a / b;
+#pragma clucalc end
+    a = mv_to_array(gaalop_div_scalar_eq_res);
+    return a;
+#pragma gpc end
+}
+
 coeff length(MV mv) {
 #pragma gpc begin
     length_mv = mv_from_array(mv);

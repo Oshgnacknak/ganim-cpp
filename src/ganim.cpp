@@ -54,6 +54,7 @@ MV create_rotor(coeff angle, MV axis) {
 #pragma clucalc end
     MV mv;
     mv = mv_to_array(create_rotor_res);
+    mv /= length(mv);
     return mv;
 #pragma gpc end
 }
@@ -63,7 +64,6 @@ int main() {
     MV b = create_point(0, 0, -1);
 
     MV l = a ^ b;
-    l = l / length(l);
     MV r = create_rotor(3.1415, l);
 
     MV x = create_point(1, 0, 0);

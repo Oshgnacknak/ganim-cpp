@@ -54,7 +54,8 @@ MV operator*(coeff, MV);
 MV operator/(MV, coeff);
 MV operator/(coeff, MV);
 
-MV& operator*=(MV, coeff);
+MV& operator*=(MV&, coeff);
+MV& operator/=(MV&, coeff);
 
 coeff length(MV mv);
 
