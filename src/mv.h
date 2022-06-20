@@ -5,7 +5,7 @@
 
 #include <cstddef>
 
-#define __BLADES 1, \
+#define __BLADES 1.0, \
                  e1, \
                  e2, \
                  einf, \

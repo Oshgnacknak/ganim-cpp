@@ -174,11 +174,10 @@ MV create_rotor(coeff angle, MV axis) {
 #pragma gpc begin
     create_rotor_axis = mv_from_array(axis);
 #pragma clucalc begin
-    ? create_rotor_res = x - create_rotor_axis * y;
+    ? create_rotor_res = x - e1*e2*y;
 #pragma clucalc end
     MV mv;
     mv = mv_to_array(create_rotor_res);
-    mv /= length(mv);
     return mv;
 #pragma gpc end
 }
