@@ -31,13 +31,26 @@ MV create_translator(MV delta) {
 #pragma gpc end
 }
 
+MV operator^(MV a, MV b) {
+#pragma gpc begin
+    gaalop_outer_prod_a = mv_from_array(a);
+    gaalop_outer_prod_b = mv_from_array(b);
+#pragma clucalc begin
+    ? gaalop_outer_prod_res = gaalop_outer_prod_a ^ gaalop_outer_prod_b;
+#pragma clucalc end
+    MV mv;
+    mv = mv_to_array(gaalop_outer_prod_res);
+    return mv;
+#pragma gpc end
+}
+
 MV create_rotor(coeff angle, MV axis) {
     coeff x = cos(angle/2);
     coeff y = sin(angle/2);
 #pragma gpc begin
     create_rotor_axis = mv_from_array(axis);
 #pragma clucalc begin
-    ? create_rotor_res = x - e1^e2^e3 * y;
+    ? create_rotor_res = x - create_rotor_axis * y;
 #pragma clucalc end
     MV mv;
     mv = mv_to_array(create_rotor_res);
@@ -46,6 +59,20 @@ MV create_rotor(coeff angle, MV axis) {
 }
 
 int main() {
+    MV a = create_point(0, 0, +1);
+    MV b = create_point(0, 0, -1);
+
+    MV l = a ^ b;
+    l = l / length(l);
+    MV r = create_rotor(3.1415, l);
+
+    MV x = create_point(1, 0, 0);
+    println("Before: ", x);
+    x = x << r;
+    println("After: ", x);
+}
+
+int main2() {
     // open_window();
     // Defer close_the_window([&] {
     //     close_window();
