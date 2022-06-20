@@ -6,7 +6,7 @@ LIBS := $(shell pkg-config --libs sdl2)
 SOURCES = $(wildcard *.cpp)
 OPJECTS = $(patsubst %.cpp, gpc/%.o, $(SOURCES))
 
-ganim: gpc/expensive.o gpc/expensive.o
+ganim: gpc/expensive.o gpc/ganim.o
 	$(CXX) $(LIBS) $(CXXFLAGS) -o $@ $^
 
 gpc/%.o: gpc/%.cpp
