@@ -21,29 +21,20 @@ MV create_translator(MV delta) {
 }
 
 int main() {
-    MV a = create_point(0, 0, +1);
-    MV b = create_point(0, 0, -1);
-
-    MV l = a ^ b;
-    MV r = create_rotor(3.1415, l);
-
-    MV x = create_point(1, 0, 0);
-    println("Before: ", x);
-    x = x << r;
-    println("After: ", x);
-}
-
-int main2() {
-    // open_window();
-    // Defer close_the_window([&] {
-    //     close_window();
-    // });
+    open_window();
+    Defer close_the_window([&] {
+        close_window();
+    });
 
     double last = current_time();
 
-    MV center = create_point(WIDTH/2, HEIGHT/2);
+    MV point = create_point(WIDTH/2, HEIGHT/2);
 
-    MV point = create_vector(WIDTH/2 + 20.0, HEIGHT/2 - 50.0);
+    MV rotor = create_rotor(3.1415, create_point(0, 0));
+    println(rotor);
+
+    MV rotated = point << rotor;
+    println(rotated);
 
     while (running) {
         double now = current_time();
@@ -53,13 +44,12 @@ int main2() {
             running = false;
         }
 
-        MV trans = create_translator(create_vector(500, 300) * dt);
+        // point <<= rotor;
 
-        point <<= trans;
-
-        // begin_render();
-        println(point);
-        // end_render();
+        begin_render();
+        draw_point(point.x(), point.y(), RED);
+        draw_point(rotated.x(), rotated.y(), GREEN);
+        end_render();
 
         double last = now;
     }
