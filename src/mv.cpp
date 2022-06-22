@@ -8,7 +8,7 @@ coeff MV::s() {
 #pragma clucalc begin
     ? mv_ss = mv_s;
 #pragma clucalc end
-    return mv_get_bladecoeff(mv_ss, 1);
+    return mv_get_bladecoeff(mv_ss, 1.0);
 #pragma gpc end
 }
 
@@ -28,7 +28,7 @@ coeff MV::y() {
 #pragma clucalc begin
     ? mv_yy = mv_y;
 #pragma clucalc end
-    return mv_get_bladecoeff(mv_yy, e1);
+    return mv_get_bladecoeff(mv_yy, e2);
 #pragma gpc end
 }
 
