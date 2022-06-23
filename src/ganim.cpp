@@ -4,6 +4,9 @@
 #include "mv.h"
 #include "render.h"
 
+const int FPS = 60;
+const double UPDATE_DELAY = 1.0 / FPS;
+
 using namespace osh;
 
 bool running = true;
@@ -32,6 +35,7 @@ int main() {
 
     MV rotated = point;
 
+    double acc = 0;
     while (running) {
         double now = current_time();
         double dt = now - last;
@@ -40,8 +44,13 @@ int main() {
             running = false;
         }
 
-        MV rotor = create_rotor(dt*15.0, create_point(WIDTH/2, HEIGHT/2));
-        rotated <<= rotor;
+        acc += dt;
+        while (acc > UPDATE_DELAY) {
+            MV rotor = create_rotor(0.12, create_point(WIDTH/2, HEIGHT/2));
+            rotated <<= rotor;
+
+            acc -= UPDATE_DELAY;
+        }
 
         begin_render();
         draw_point(point.x(), point.y(), RED);
