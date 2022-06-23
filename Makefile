@@ -13,7 +13,7 @@ gpc/%.o: gpc/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $^
 
 gpc/%: gpc/%.gpc
-	gpc --double --pragmas -i $< --of $@ > /dev/null
+	gpc --double -a cra --pragmas -i $< --of $@ > /dev/null
 
 gpc/expensive.cpp.gpc: expensive.cpp src/sandwich.cpp src/div.cpp
 	cpp $< -o $@
