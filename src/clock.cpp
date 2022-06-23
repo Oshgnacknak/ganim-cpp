@@ -4,5 +4,5 @@
 
 double current_time() {
     double x = clock();
-    return x / CLOCKS_PER_SEC;
+    return x / (double) CLOCKS_PER_SEC;
 }

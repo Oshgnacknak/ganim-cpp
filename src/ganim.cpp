@@ -28,7 +28,9 @@ int main() {
 
     double last = current_time();
 
-    MV point = create_point(WIDTH-100, 120);
+    MV point = create_point(WIDTH/2 - 60, HEIGHT/2);
+
+    MV rotated = point;
 
     while (running) {
         double now = current_time();
@@ -38,16 +40,15 @@ int main() {
             running = false;
         }
 
-
-        MV rotor = create_rotor(dt, {});
-        MV rotated = point << rotor;
+        MV rotor = create_rotor(dt*15.0, create_point(WIDTH/2, HEIGHT/2));
+        rotated <<= rotor;
 
         begin_render();
         draw_point(point.x(), point.y(), RED);
         draw_point(rotated.x(), rotated.y(), GREEN);
         end_render();
 
-        double last = now;
+        last = now;
     }
 
     return 0; 
