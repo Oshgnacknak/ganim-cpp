@@ -45,6 +45,18 @@ MV operator+(MV a, MV b) {
 #pragma gpc end
 }
 
+MV& operator+=(MV& a, MV b) {
+#pragma gpc begin
+    gaalop_add_eq_a = mv_from_array(a);
+    gaalop_add_eq_b = mv_from_array(b);
+#pragma clucalc begin
+    ? gaalop_add_eq_res = gaalop_add_eq_a + gaalop_add_eq_b;
+#pragma clucalc end
+    a = mv_to_array(gaalop_add_eq_res);
+    return a;
+#pragma gpc end
+}
+
 MV operator-(MV a, MV b) {
 #pragma gpc begin
     gaalop_sub_a = mv_from_array(a);
@@ -73,9 +85,21 @@ MV operator*(MV a, MV b) {
 
 MV operator*(MV a, coeff b) {
 #pragma gpc begin
-    gaalop_times_scalar_a = mv_from_array(a);
+    gaalop_scalar_times_a = mv_from_array(a);
 #pragma clucalc begin
-    ? gaalop_times_scalar_res = gaalop_times_scalar_a * b;
+    ? gaalop_scalar_times_res = gaalop_scalar_times_a * b;
+#pragma clucalc end
+    MV mv;
+    mv = mv_to_array(gaalop_scalar_times_res);
+    return mv;
+#pragma gpc end
+}
+
+MV operator*(coeff a, MV b) {
+#pragma gpc begin
+    gaalop_times_scalar_b = mv_from_array(b);
+#pragma clucalc begin
+    ? gaalop_times_scalar_res = a * gaalop_times_scalar_b;
 #pragma clucalc end
     MV mv;
     mv = mv_to_array(gaalop_times_scalar_res);
@@ -117,6 +141,31 @@ MV& operator/=(MV& a, coeff b) {
 #pragma gpc end
 }
 
+MV operator^(MV a, MV b) {
+#pragma gpc begin
+    gaalop_outer_prod_a = mv_from_array(a);
+    gaalop_outer_prod_b = mv_from_array(b);
+#pragma clucalc begin
+    ? gaalop_outer_prod_res = gaalop_outer_prod_a ^ gaalop_outer_prod_b;
+#pragma clucalc end
+    MV mv;
+    mv = mv_to_array(gaalop_outer_prod_res);
+    return mv;
+#pragma gpc end
+}
+
+MV operator!(MV mv) {
+#pragma gpc begin
+    gaalop_dual_mv = mv_from_array(mv);
+#pragma clucalc begin
+    ? gaalop_dual_res = *gaalop_dual_mv;
+#pragma clucalc end
+    MV res;
+    res = mv_to_array(gaalop_dual_res);
+    return res;
+#pragma gpc end
+}
+
 coeff length(MV mv) {
 #pragma gpc begin
     length_mv = mv_from_array(mv);
@@ -140,19 +189,6 @@ MV create_point(coeff x, coeff y) {
 #pragma gpc end
 }
 
-MV operator^(MV a, MV b) {
-#pragma gpc begin
-    gaalop_outer_prod_a = mv_from_array(a);
-    gaalop_outer_prod_b = mv_from_array(b);
-#pragma clucalc begin
-    ? gaalop_outer_prod_res = gaalop_outer_prod_a ^ gaalop_outer_prod_b;
-#pragma clucalc end
-    MV mv;
-    mv = mv_to_array(gaalop_outer_prod_res);
-    return mv;
-#pragma gpc end
-}
-
 MV create_vector(coeff x, coeff y) {
 #pragma gpc begin
 #pragma clucalc begin
@@ -162,10 +198,6 @@ MV create_vector(coeff x, coeff y) {
     mv = mv_to_array(vector_res);
     return mv;
 #pragma gpc end
-}
-
-coeff& MV::operator[](size_t blade) {
-    return coeffs[blade];
 }
 
 MV create_rotor(coeff angle, MV axis) {
@@ -236,4 +268,8 @@ void print1(osh::Formatter auto& fmt, MV& mv) {
         printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^e2^einf^e0), "e1^e2^einf^e0");
     }
 #pragma gpc end
+}
+
+coeff& MV::operator[](size_t blade) {
+    return coeffs[blade];
 }

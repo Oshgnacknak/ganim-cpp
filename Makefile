@@ -18,5 +18,5 @@ gpc/%: gpc/%.gpc
 gpc/expensive.cpp.gpc: expensive.cpp src/sandwich.cpp src/div.cpp
 	cpp $< -o $@
 
-gpc/ganim.cpp.gpc: ganim.cpp src/clock.cpp src/ganim.cpp src/mv.cpp src/render.cpp
+gpc/ganim.cpp.gpc: ganim.cpp src/game.cpp src/clock.cpp src/ganim.cpp src/mv.cpp src/render.cpp
 	cpp $< -o $@
