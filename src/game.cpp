@@ -1,39 +1,43 @@
 #include "render.h"
 #include "mv.h"
 
-MV create_translator(MV t) {
+MV create_motor(MV from, MV to) {
 #pragma gpc begin
-    create_translator_t = mv_from_array(t);
+    create_motor_from = mv_from_array(from);
+    create_motor_to = mv_from_array(to);
 #pragma clucalc begin
-    ? create_translator_res = 1 - 0.5 * create_translator_t * einf;
+    ? create_motor_res = 1 + create_motor_from/create_motor_to;
 #pragma clucalc end
     MV mv;
-    mv = mv_to_array(create_translator_res);
+    mv = mv_to_array(create_motor_res);
     return mv;
 #pragma gpc end
 }
 
-// function dState([M,B]) {
-//   return  [
-//     -0.5 * M * B,
-//     -0.5 * (B.Dual*B - B*B.Dual).UnDual
-//   ]
-// }
-
-
 struct Particle {
-    MV motor = create_translator(
-        create_vector(WIDTH/2.0, HEIGHT/2.0));
-    MV vel;
+    MV motor = create_motor(
+        create_point(0, 0),
+        create_point(WIDTH/2.0, HEIGHT/2.0));
+    MV vel = !create_vector(0, 0);
 
     MV position() {
-        return create_point() << motor;
+        MV pos = !(create_point() << motor);
+        pos /= -pos[E0];
+        return pos;
+    }
+
+    void update(double dt) {
+        MV dm = -0.5 * motor * vel;
+        MV dv = !(0.5 * (!vel * vel - vel * !vel));
+        motor += dt * dm;
+        vel += dt * dv;
     }
 };
 
 Particle particle;
 
 void update(double dt) {
+    particle.update(dt);
 }
 
 void draw() {

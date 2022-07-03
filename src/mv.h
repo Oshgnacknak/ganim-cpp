@@ -6,21 +6,22 @@
 #include <cstddef>
 
 #define __BLADES 1.0, \
+                 e0, \
                  e1, \
                  e2, \
-                 einf, \
-                 e0, \
+                 e0^e1, \
+                 e0^e2, \
                  e1^e2, \
-                 e1^einf, \
-                 e1^e0, \
-                 e2^einf, \
-                 e2^e0, \
-                 einf^e0, \
-                 e1^e2^einf, \
-                 e1^e2^e0, \
-                 e1^einf^e0, \
-                 e2^einf^e0, \
-                 e1^e2^einf^e0
+                 e0^e1^e2
+
+const size_t ONE  = 0;
+const size_t E0   = 1;
+const size_t E1   = 2;
+const size_t E2   = 3;
+const size_t E01  = 4;
+const size_t E02  = 5;
+const size_t E12  = 6;
+const size_t E012 = 7;
 
 #define mv_to_array(mv) mv_to_array(mv, __BLADES)
 
@@ -29,7 +30,7 @@
 using coeff = double;
 
 struct MV {
-    coeff coeffs[16] = { 0 };
+    coeff coeffs[8] = { 0 };
 
     coeff& operator[](size_t);
 
@@ -72,6 +73,8 @@ MV& operator*=(MV&, coeff);
 MV& operator/=(MV&, coeff);
 
 coeff length(MV mv);
+
+MV scalar(coeff s);
 
 MV create_rotor(coeff angle, MV axis);
 

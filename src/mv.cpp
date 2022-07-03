@@ -178,10 +178,21 @@ coeff length(MV mv) {
 #pragma gpc end
 }
 
+MV scalar(coeff s) {
+#pragma gpc begin
+#pragma clucalc begin
+    ? gaalop_scalar_s = s;
+#pragma clucalc end
+    MV mv;
+    mv = mv_to_array(gaalop_scalar_s);
+    return mv;
+#pragma gpc end
+}
+
 MV create_point(coeff x, coeff y) {
 #pragma gpc begin
 #pragma clucalc begin
-    ? create_point_res = createPoint(x, y, 0);
+    ? create_point_res = *(e0 + x*e1 + y*e2);
 #pragma clucalc end
     MV mv;
     mv = mv_to_array(create_point_res);
@@ -200,19 +211,19 @@ MV create_vector(coeff x, coeff y) {
 #pragma gpc end
 }
 
-MV create_rotor(coeff angle, MV axis) {
-    coeff x = cos(angle/2);
-    coeff y = sin(angle/2);
-#pragma gpc begin
-    create_rotor_axis = mv_from_array(axis);
-#pragma clucalc begin
-    ? create_rotor_res = x - y * (*(create_rotor_axis ^ einf));
-#pragma clucalc end
-    MV mv;
-    mv = mv_to_array(create_rotor_res);
-    return mv;
-#pragma gpc end
-}
+// MV create_rotor(coeff angle, MV axis) {
+//     coeff x = cos(angle/2);
+//     coeff y = sin(angle/2);
+// #pragma gpc begin
+//     create_rotor_axis = mv_from_array(axis);
+// #pragma clucalc begin
+//     ? create_rotor_res = x - y * (*(create_rotor_axis ^ einf));
+// #pragma clucalc end
+//     MV mv;
+//     mv = mv_to_array(create_rotor_res);
+//     return mv;
+// #pragma gpc end
+// }
 
 void print1(osh::Formatter auto& fmt, MV& mv) {
 #pragma gpc begin
@@ -228,44 +239,20 @@ void print1(osh::Formatter auto& fmt, MV& mv) {
     if (mv_get_bladecoeff(mv_print1_res, e2) != 0) {
         printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e2), "e2");
     }
-    if (mv_get_bladecoeff(mv_print1_res, einf) != 0) {
-        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, einf), "einf");
-    }
     if (mv_get_bladecoeff(mv_print1_res, e0) != 0) {
         printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e0), "e0");
     }
     if (mv_get_bladecoeff(mv_print1_res, e1^e2) != 0) {
         printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^e2), "e1^e2");
     }
-    if (mv_get_bladecoeff(mv_print1_res, e1^einf) != 0) {
-        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^einf), "e1^einf");
+    if (mv_get_bladecoeff(mv_print1_res, e0^e1) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e0^e1), "e0^e1");
     }
-    if (mv_get_bladecoeff(mv_print1_res, e1^e0) != 0) {
-        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^e0), "e1^e0");
+    if (mv_get_bladecoeff(mv_print1_res, e0^e1) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e0^e1), "e0^e1");
     }
-    if (mv_get_bladecoeff(mv_print1_res, e2^einf) != 0) {
-        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e2^einf), "e2^einf");
-    }
-    if (mv_get_bladecoeff(mv_print1_res, e2^e0) != 0) {
-        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e2^e0), "e2^e0");
-    }
-    if (mv_get_bladecoeff(mv_print1_res, einf^e0) != 0) {
-        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, einf^e0), "einf^e0");
-    }
-    if (mv_get_bladecoeff(mv_print1_res, e1^e2^einf) != 0) {
-        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^e2^einf), "e1^e2^einf");
-    }
-    if (mv_get_bladecoeff(mv_print1_res, e1^e2^e0) != 0) {
-        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^e2^e0), "e1^e2^e0");
-    }
-    if (mv_get_bladecoeff(mv_print1_res, e1^einf^e0) != 0) {
-        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^einf^e0), "e1^einf^e0");
-    }
-    if (mv_get_bladecoeff(mv_print1_res, e2^einf^e0) != 0) {
-        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e2^einf^e0), "e2^einf^e0");
-    }
-    if (mv_get_bladecoeff(mv_print1_res, e1^e2^einf^e0) != 0) {
-        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e1^e2^einf^e0), "e1^e2^einf^e0");
+    if (mv_get_bladecoeff(mv_print1_res, e0^e1^e2) != 0) {
+        printp(fmt, " + ", mv_get_bladecoeff(mv_print1_res, e0^e1^e2), "e0^e1^e2");
     }
 #pragma gpc end
 }
