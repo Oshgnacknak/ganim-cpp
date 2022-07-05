@@ -76,6 +76,8 @@ coeff length(MV mv);
 
 MV scalar(coeff s);
 
+MV create_motor(MV from, MV to);
+
 MV create_rotor(coeff angle, MV axis);
 
 MV create_point(coeff x=0, coeff y=0);

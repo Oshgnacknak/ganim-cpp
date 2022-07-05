@@ -211,6 +211,19 @@ MV create_vector(coeff x, coeff y) {
 #pragma gpc end
 }
 
+MV create_motor(MV from, MV to) {
+#pragma gpc begin
+    create_motor_from = mv_from_array(from);
+    create_motor_to = mv_from_array(to);
+#pragma clucalc begin
+    ? create_motor_res = 1 + create_motor_from/create_motor_to;
+#pragma clucalc end
+    MV mv;
+    mv = mv_to_array(create_motor_res);
+    return mv;
+#pragma gpc end
+}
+
 // MV create_rotor(coeff angle, MV axis) {
 //     coeff x = cos(angle/2);
 //     coeff y = sin(angle/2);
