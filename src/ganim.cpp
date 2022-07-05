@@ -13,10 +13,14 @@ using namespace osh;
 bool running = true;
 
 int main() {
+    OSH_H_MAIN_INIT();
+
     open_window();
     Defer close_the_window([&] {
         close_window();
     });
+
+    init();
 
     double last = current_time();
 

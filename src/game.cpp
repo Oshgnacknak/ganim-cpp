@@ -11,8 +11,16 @@ struct Particle {
     MV motor = create_motor(
         create_point(0, 0),
         create_point(WIDTH/2.0, HEIGHT/2.0));
-    MV vel = create_velocity(300, -200);
+
+    MV vel;
+
     MV forques = { 0 };
+
+    Particle() {
+        vel = create_velocity(
+            random(-300, 300), 
+            random(-300, 300));
+    }
 
     MV position() {
         MV pos = !(create_point() << motor);
@@ -52,16 +60,31 @@ struct Particle {
     }
 };
 
-Particle particle;
+DArray<Particle> particles;
+
+void init() {
+    for (int i = 0; i < 5; i++) {
+        particles.push(Particle());
+    }
+}
 
 void update(double dt) {
-    particle.damping();
-    particle.gravity();
+    for (int i = 0; i < particles.size(); i++) {
+        auto& particle = particles[i];
 
-    particle.update(dt);
+        particle.damping();
+        particle.gravity();
+
+        particle.update(dt);
+    }
 }
 
 void draw() {
-    MV pos = particle.position();
-    draw_point(pos.x(), pos.y(), BLUE);
+    for (int i = 0; i < particles.size(); i++) {
+        auto& particle = particles[i];
+
+        MV pos = particle.position();
+        println(random(0, 5));
+        draw_point(pos.x(), pos.y(), BLUE);
+    }
 }

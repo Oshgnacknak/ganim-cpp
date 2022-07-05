@@ -5,6 +5,10 @@
 
 #include <stdio.h>
 
+#define OSH_H_MAIN_INIT() if (1) { \
+                            srand((unsigned) time(0)); \
+                        }
+
 namespace osh {
 
     template<typename R>
@@ -124,6 +128,9 @@ namespace osh {
     
     template<typename T>
     T max(T a, T b);
+
+    template<typename T>
+    T random(T min, T max);
 }
 
 #endif /* OSH_H */
@@ -409,6 +416,11 @@ namespace osh {
     template<typename T>
     T max(T a, T b) {
         return a > b ? a : b;
+    }
+
+    template<typename T>
+    T random(T min, T max) {
+        return min + ((max - min) * (rand() / (double) RAND_MAX));
     }
 }
 
