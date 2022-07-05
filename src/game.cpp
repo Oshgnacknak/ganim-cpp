@@ -76,7 +76,7 @@ struct Particle {
 DArray<Particle> particles;
 
 void init() {
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 20; i++) {
         particles.push(Particle());
     }
 }

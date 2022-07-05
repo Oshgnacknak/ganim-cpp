@@ -3,8 +3,8 @@
 
 #include <cstdint>
 
-const int WIDTH = 800;
-const int HEIGHT = 600;
+const int WIDTH = 1000;
+const int HEIGHT = 800;
 const int POINT_RADIUS = 8;
 
 struct Color {
