@@ -12,11 +12,19 @@ struct Particle {
         create_point(0, 0),
         create_point(WIDTH/2.0, HEIGHT/2.0));
 
+    Color color;
+
     MV vel;
 
     MV forques = { 0 };
 
     Particle() {
+        color = {
+            random<uint8_t>(120, 255),
+            random<uint8_t>(120, 255),
+            random<uint8_t>(120, 255)
+        };
+
         vel = create_velocity(
             random(-300, 300), 
             random(-300, 300));
@@ -36,6 +44,11 @@ struct Particle {
         vel += dt * dv;
 
         forques = { 0 };
+    }
+
+    void draw() {
+        MV pos = position();
+        draw_point(pos.x(), pos.y(), color);
     }
 
     void applyForque(MV forque) {
@@ -81,10 +94,6 @@ void update(double dt) {
 
 void draw() {
     for (int i = 0; i < particles.size(); i++) {
-        auto& particle = particles[i];
-
-        MV pos = particle.position();
-        println(random(0, 5));
-        draw_point(pos.x(), pos.y(), BLUE);
+        particles[i].draw();
     }
 }
